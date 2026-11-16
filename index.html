@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="icon" href="assets/icon.png">
+<title>PuddleProof</title>
+<meta name="description" content="PuddleProof: adjustable, waterproof, self-cooling shoe covers. Try every color on the real product.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one dark page, three stops: hero → color studio (the star) → who we are.
+   The page accent follows the color you pick in the studio. */
+:root{
+  --bg:#0B0D0E; --panel:#131618; --panel-2:#1A1E21; --line:#262B2E; --fg:#EEF0ED; --muted:#929A97;
+  --accent:#F2C230; --on-accent:#0B0D0E; --glow:rgba(242,194,48,.28);
+  --display:"Unbounded","Arial Black",system-ui,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gl:max(20px,env(safe-area-inset-left,0px)); --gr:max(20px,env(safe-area-inset-right,0px));
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+h1,h2,h3{font-family:var(--display);font-weight:800;line-height:1;margin:0;text-wrap:balance;letter-spacing:-.02em}
+p{margin:0}
+img{display:block;max-width:100%}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.kicker{font-size:.78rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.accent{color:var(--accent);transition:color .4s}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 28px;border-radius:999px;border:0;font-family:var(--body);font-weight:700;font-size:1rem;text-decoration:none;cursor:pointer;transition:background .4s,color .4s,transform .15s,box-shadow .4s}
+.btn:active{transform:scale(.97)}
+.btn-accent{background:var(--accent);color:var(--on-accent);box-shadow:0 10px 40px -10px var(--glow)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--fg);border:1px solid rgba(255,255,255,.18)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(11,13,14,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+.nav .wrap{display:flex;align-items:center;gap:20px;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo svg{width:24px;height:29px}
+.logo span{font-family:var(--display);font-weight:800;font-size:1.05rem;letter-spacing:-.01em}
+.nav-links{display:flex;gap:4px;margin-left:auto}
+.nav-links a{text-decoration:none;font-weight:600;font-size:.95rem;color:var(--muted);padding:10px 14px;border-radius:999px}
+.nav-links a:hover{color:var(--fg);background:rgba(255,255,255,.06)}
+.nav .btn{min-height:44px;padding:0 20px}
+@media (max-width:760px){.nav-links{display:none}.nav .btn{margin-left:auto}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%;z-index:-2}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(11,13,14,.96) 0%,rgba(11,13,14,.82) 34%,rgba(11,13,14,.1) 70%),linear-gradient(0deg,var(--bg) 0%,rgba(11,13,14,0) 30%)}
+.hero .wrap{padding-block:clamp(80px,13vw,170px) clamp(64px,9vw,120px);display:grid;gap:28px;justify-items:start}
+.hero h1{font-size:clamp(2.9rem,7.6vw,6.2rem);max-width:9ch}
+.hero p{font-size:clamp(1.05rem,1.6vw,1.25rem);color:#C3C9C6;max-width:42ch}
+.hero .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.price-chip{font-weight:700;color:var(--fg);padding:0 6px}
+@media (max-width:760px){
+  .hero img{object-position:70% 50%}
+  .hero::before{background:linear-gradient(0deg,rgba(11,13,14,.97) 0%,rgba(11,13,14,.85) 45%,rgba(11,13,14,.25) 100%)}
+  .hero .wrap{padding-top:300px}
+}
+
+/* studio */
+.studio{padding-block:clamp(72px,10vw,130px)}
+.studio-head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
+.studio-head h2{font-size:clamp(2.1rem,5vw,3.8rem)}
+.studio-head p{color:var(--muted);font-size:1.1rem}
+.studio-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,56px);align-items:center}
+.stage{position:relative;aspect-ratio:614/768;max-width:100%;border-radius:28px;overflow:hidden;background:var(--panel);box-shadow:0 0 0 1px var(--line),0 40px 120px -40px var(--glow);transition:box-shadow .5s}
+.stage canvas{position:absolute;inset:0;width:100%;height:100%;transition:opacity .35s ease}
+.stage .badge{position:absolute;left:16px;top:16px;display:flex;align-items:center;gap:10px;background:rgba(11,13,14,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 14px 8px 8px;font-weight:700;font-size:.92rem}
+.badge i{width:22px;height:22px;border-radius:50%;background:var(--sw,#7D8285);box-shadow:inset 0 0 0 1px rgba(255,255,255,.25)}
+.stage .loading{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-weight:600}
+.compare{position:absolute;right:16px;top:16px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(11,13,14,.72);color:var(--fg);font:inherit;font-weight:700;font-size:.85rem;cursor:pointer;-webkit-user-select:none;user-select:none;touch-action:none}
+.panel{display:grid;gap:28px;min-width:0}
+.color-title{display:grid;gap:4px}
+.color-title strong{font-family:var(--display);font-weight:800;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.05}
+.color-title span{color:var(--muted);font-weight:600;font-variant-numeric:tabular-nums}
+.swatches{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:34px 14px;padding-bottom:22px}
+.sw{position:relative;aspect-ratio:1;max-width:100%;border-radius:50%;border:0;background:var(--c);cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);transition:transform .2s,box-shadow .2s}
+.sw:hover{transform:scale(1.06)}
+.sw[aria-checked=true]{box-shadow:inset 0 0 0 1px rgba(255,255,255,.18),0 0 0 3px var(--bg),0 0 0 5px var(--fg)}
+.sw-label{position:absolute;inset:auto 0 -24px;font-size:.72rem;font-weight:700;color:var(--muted);white-space:nowrap;text-align:center;opacity:0;transition:opacity .2s}
+.sw:hover .sw-label,.sw[aria-checked=true] .sw-label{opacity:1}
+.custom{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:18px;background:var(--panel);border:1px solid var(--line);margin-top:10px}
+.custom label{font-weight:700;flex:1}
+.custom small{display:block;color:var(--muted);font-weight:500}
+.custom input[type=color]{width:56px;height:44px;border:0;border-radius:12px;background:none;cursor:pointer;padding:0}
+.custom input[type=color]::-webkit-color-swatch-wrapper{padding:0}
+.custom input[type=color]::-webkit-color-swatch{border:1px solid rgba(255,255,255,.2);border-radius:12px}
+.custom input[type=color]::-moz-color-swatch{border:1px solid rgba(255,255,255,.2);border-radius:12px}
+.sizes{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.size{min-height:60px;border-radius:16px;border:1px solid var(--line);background:var(--panel);color:var(--fg);text-align:left;padding:10px 16px;cursor:pointer;font:inherit}
+.size b{display:block}
+.size small{color:var(--muted)}
+.size[aria-checked=true]{border-color:var(--fg);background:var(--panel-2)}
+.buy-row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between;padding-top:22px;border-top:1px solid var(--line)}
+.buy-row .price{font-family:var(--display);font-weight:800;font-size:2rem}
+.buy-row .price small{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--muted)}
+.buy-row .btn{flex:1;min-width:200px}
+@media (max-width:860px){.studio-grid{grid-template-columns:1fr}.swatches{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* what */
+.what{padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--line)}
+.what-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.what-grid div{background:var(--bg);padding:28px 24px;display:grid;gap:10px;align-content:start}
+.what-grid svg{width:28px;height:28px;color:var(--accent);transition:color .4s}
+.what-grid h3{font-size:1.05rem;letter-spacing:-.01em;line-height:1.2}
+.what-grid p{color:var(--muted);font-size:.97rem}
+@media (max-width:900px){.what-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.what-grid{grid-template-columns:1fr}}
+
+/* about */
+.about{padding-block:clamp(72px,10vw,130px)}
+.about-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(32px,6vw,90px);align-items:start}
+.about h2{font-size:clamp(2.1rem,5vw,3.8rem)}
+.about .lede{font-size:1.15rem;color:#C3C9C6;max-width:52ch;margin-top:22px}
+.team{display:grid;gap:0;border-top:1px solid var(--line)}
+.member{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+.member h3{font-size:clamp(1.15rem,2.2vw,1.5rem);letter-spacing:-.01em}
+.member span{font-weight:700;color:var(--accent);letter-spacing:.14em;font-size:.82rem;transition:color .4s}
+@media (max-width:860px){.about-grid{grid-template-columns:1fr}}
+
+footer{border-top:1px solid var(--line);padding-block:30px;color:var(--muted);font-size:.9rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;align-items:center}
+
+/* order dialog */
+.modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px;background:rgba(5,6,7,.7);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.sheet{width:min(440px,100%);background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:28px;display:grid;gap:18px;text-align:center;justify-items:center}
+.sheet .dot{width:64px;height:64px;border-radius:50%;background:var(--accent);display:grid;place-items:center;color:var(--on-accent)}
+.sheet .dot svg{width:30px;height:30px}
+.sheet h2{font-size:1.6rem}
+.sheet p{color:var(--muted)}
+.sheet .sum{width:100%;display:grid;gap:8px;padding:16px;border-radius:16px;background:var(--bg);text-align:left}
+.sheet .sum div{display:flex;justify-content:space-between;gap:12px}
+.sheet .sum b{font-variant-numeric:tabular-nums}
+
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="logo" viewBox="0 0 46 56"><path fill="#F2C230" d="M23 0l23 8.6v18.1C46 41 35.6 50 23 56 10.4 50 0 41 0 26.7V8.6z"/><path fill="#0B0D0E" d="M23 13s-10 11-10 18a10 10 0 0 0 20 0c0-7-10-18-10-18z"/><path fill="none" stroke="#F2C230" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M18 32l3.6 3.6L28 28"/></symbol>
+  <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+</defs></svg>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="PuddleProof home"><svg aria-hidden="true"><use href="#logo"/></svg><span>PuddleProof</span></a>
+    <nav class="nav-links" aria-label="Sections"><a href="#colors">Colors</a><a href="#product">Product</a><a href="#about">About us</a></nav>
+    <a class="btn btn-accent" href="#colors">Buy · $49.99</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="h1">
+    <img src="assets/hero.jpg" alt="PuddleProof shoe cover on a wet stone path: a clear waterproof base over a sneaker with a tall fabric cuff" fetchpriority="high">
+    <div class="wrap">
+      <span class="kicker">Waterproof shoe covers · Florida</span>
+      <h1 id="h1">Step in. <span class="accent">Stay dry.</span></h1>
+      <p>PuddleProof slips over the shoes you already own. A waterproof base keeps water out, the cuff rolls up to mid-calf for deep puddles, and a built-in fan keeps your feet cool.</p>
+      <div class="row">
+        <a class="btn btn-accent" href="#colors">Try the colors</a>
+        <span class="price-chip">$49.99 a pair</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="studio" id="colors" aria-labelledby="studioH">
+    <div class="wrap">
+      <div class="studio-head">
+        <span class="kicker">Color studio</span>
+        <h2 id="studioH">Make it <span class="accent">yours.</span></h2>
+        <p>Pick a color and watch it on the real product. Only the fabric cuff changes. The buckles, clear base and sole stay the same, just like the real thing.</p>
+      </div>
+      <div class="studio-grid">
+        <div class="stage" id="stage">
+          <canvas id="cvA" aria-hidden="true"></canvas>
+          <canvas id="cvB" aria-hidden="true" style="opacity:0"></canvas>
+          <div class="loading" id="loading">Loading the product…</div>
+          <div class="badge" aria-live="polite"><i id="badgeDot"></i><span id="badgeTxt">Graphite</span></div>
+          <button class="compare" id="compare" type="button" aria-label="Hold to see the original color">Hold: original</button>
+        </div>
+        <form class="panel" id="buyForm" novalidate>
+          <div class="color-title"><strong id="colorName">Graphite</strong><span id="colorHex">The original color</span></div>
+          <div>
+            <div class="swatches" role="radiogroup" aria-label="Color" id="swatches"></div>
+            <div class="custom">
+              <label for="picker">Any color you want<small>Use the picker to try your own</small></label>
+              <input type="color" id="picker" value="#7d8285">
+            </div>
+          </div>
+          <div class="sizes" role="radiogroup" aria-label="Size">
+            <button type="button" class="size" role="radio" aria-checked="true" data-size="Size 1"><b>Size 1</b><small>US shoe 4–8</small></button>
+            <button type="button" class="size" role="radio" aria-checked="false" data-size="Size 2"><b>Size 2</b><small>US shoe 8.5–13</small></button>
+          </div>
+          <div class="buy-row">
+            <div class="price">$49.99<small>per pair, fan and pouch included</small></div>
+            <button class="btn btn-accent" type="submit">Buy this color</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="what" id="product" aria-labelledby="whatH">
+    <div class="wrap">
+      <h2 id="whatH" class="kicker" style="font-family:var(--body);margin-bottom:22px">What we sell</h2>
+      <div class="what-grid">
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M12 3s6 6.6 6 11a6 6 0 0 1-12 0c0-4.4 6-11 6-11z"/></svg><h3>Waterproof base</h3><p>A plastic shell wraps your whole shoe. Water stays out and it rinses clean in seconds.</p></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M8 7l4-4 4 4M8 17l4 4 4-4"/></svg><h3>Adjustable height</h3><p>Keep the cuff at the ankle, or roll it up to mid-calf when the street floods.</p></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 10c0-4 1-7 4-7 2 0 3 2 2 4l-4 4M14 12c4 0 7 1 7 4 0 2-2 3-4 2l-4-4M12 14c0 4-1 7-4 7-2 0-3-2-2-4l4-4M10 12c-4 0-7-1-7-4 0-2 2-3 4-2l4 4"/></g></svg><h3>Built-in cooling</h3><p>Moisture-wicking mesh plus a small fan that blows cool air down to your feet.</p></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2"/></svg><h3>Folds into a pouch</h3><p>Elastic opening, non-slip sole, and a carry pouch for your bag or car.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about" aria-labelledby="aboutH">
+    <div class="wrap about-grid">
+      <div>
+        <span class="kicker">Who we are</span>
+        <h2 id="aboutH" style="margin-top:14px">Three students who were tired of <span class="accent">wet socks.</span></h2>
+        <p class="lede">We live where it rains and floods, so we built a shoe cover that actually keeps you dry. It's reusable, easy to put on and take off, and made to last every storm. No more single-use covers, and no more walking around in wet socks all day.</p>
+      </div>
+      <div class="team">
+        <div class="member"><h3>Paxton Novak</h3><span>CEO</span></div>
+        <div class="member"><h3>Federico Bernal Paredes</h3><span>CMO</span></div>
+        <div class="member"><h3>Mir Ozel</h3><span>CFO</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Back to top"><svg aria-hidden="true"><use href="#logo"/></svg><span>PuddleProof</span></a>
+    <p>Step in. Stay dry. · A student business project, 2026</p>
+  </div>
+</footer>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="sheet">
+    <div class="dot"><svg aria-hidden="true"><use href="#check"/></svg></div>
+    <h2 id="mTitle">Nice pick!</h2>
+    <div class="sum" id="sum"></div>
+    <p>This is a practice store for a school project, so nothing is charged.</p>
+    <button class="btn btn-accent" id="mClose" type="button" style="width:100%">Keep browsing</button>
+  </div>
+</div>
+
+<script>
+const $ = s => document.querySelector(s), $$ = s => [...document.querySelectorAll(s)];
+const PRESETS = [
+  {n:'Graphite', c:'#7D8285', orig:true}, {n:'Midnight Black', c:'#1E2023'}, {n:'Arctic White', c:'#EFF0EC'},
+  {n:'Ocean Blue', c:'#2F5D9B'}, {n:'Sky Blue', c:'#7FB2E5'}, {n:'Forest Green', c:'#3D6A3A'},
+  {n:'Fire Red', c:'#B3262E'}, {n:'Bubblegum Pink', c:'#E58BB0'}, {n:'Sunshine Yellow', c:'#F2C230'}, {n:'Sunset Orange', c:'#F07A26'}
+];
+const hex2rgb = h => [1,3,5].map(i => parseInt(h.slice(i,i+2),16)/255);
+const luma = ([r,g,b]) => .299*r + .587*g + .114*b;
+
+/* ---------- recolor engine ---------- */
+let W, H, src, L, A, mean, front = $('#cvA'), back = $('#cvB'), ready = false, origData;
+function loadImg(u){ return new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = u; }); }
+Promise.all([loadImg('assets/try-photo.jpg'), loadImg('assets/try-mask.png')]).then(([ph, mk]) => {
+  W = ph.naturalWidth; H = ph.naturalHeight;
+  for (const c of [front, back]) { c.width = W; c.height = H; }
+  const t = document.createElement('canvas'); t.width = W; t.height = H; const tx = t.getContext('2d');
+  tx.drawImage(ph, 0, 0); origData = tx.getImageData(0, 0, W, H); src = origData.data;
+  tx.clearRect(0,0,W,H); tx.drawImage(mk, 0, 0); const md = tx.getImageData(0, 0, W, H).data;
+  L = new Float32Array(W*H); A = new Float32Array(W*H); let s = 0, n = 0;
+  for (let i = 0, p = 0; i < W*H; i++, p += 4) { L[i] = (.299*src[p] + .587*src[p+1] + .114*src[p+2]) / 255; A[i] = md[p] / 255; if (A[i] > .7) { s += L[i]; n++; } }
+  mean = s / n; ready = true; $('#loading').hidden = true; paint(current.c, true);
+}).catch(() => { $('#loading').textContent = 'The product photo could not load. Refresh to try again.'; });
+
+function render(hex){
+  const t = hex2rgb(hex), lt = luma(t), out = new ImageData(W, H), d = out.data;
+  const dark = lt < .35, km = dark ? .6 : .3, ka = 1 - km;
+  for (let i = 0, p = 0; i < W*H; i++, p += 4) {
+    const a = A[i];
+    if (a < .004) { d[p] = src[p]; d[p+1] = src[p+1]; d[p+2] = src[p+2]; d[p+3] = 255; continue; }
+    const l = L[i], r = Math.min(l/mean, 3) ** .9, dl = l - mean;
+    for (let k = 0; k < 3; k++) {
+      let v = km * t[k] * r + ka * (t[k] + dl);
+      v = v < 0 ? 0 : v > 1 ? 1 : v;
+      d[p+k] = src[p+k] * (1 - a) + v * 255 * a;
+    }
+    d[p+3] = 255;
+  }
+  return out;
+}
+let current = PRESETS[0];
+function paint(hex, instant){
+  if (!ready) return;
+  const data = current.orig && hex.toUpperCase() === PRESETS[0].c ? origData : render(hex);
+  back.getContext('2d').putImageData(data, 0, 0);
+  if (instant) { front.getContext('2d').putImageData(data, 0, 0); return; }
+  back.style.opacity = 1; front.style.opacity = 0;
+  [front, back] = [back, front];
+}
+function setAccent(hex){
+  const t = hex2rgb(hex), l = luma(t), root = document.documentElement.style;
+  // keep the accent readable on the dark page: lift very dark picks
+  let acc = hex; if (l < .28) { const k = .28 / Math.max(l, .02); acc = '#' + t.map(v => Math.round(Math.min(1, v*k + (l < .05 ? .55 : 0))*255).toString(16).padStart(2,'0')).join(''); }
+  const la = luma(hex2rgb(acc));
+  root.setProperty('--accent', acc); root.setProperty('--on-accent', la > .55 ? '#0B0D0E' : '#FFFFFF');
+  const [r,g,b] = hex2rgb(acc).map(v => Math.round(v*255)); root.setProperty('--glow', `rgba(${r},${g},${b},.32)`);
+}
+function choose(p, btn){
+  current = p;
+  $$('.sw').forEach(b => b.setAttribute('aria-checked', b === btn));
+  $('#colorName').textContent = p.n; $('#badgeTxt').textContent = p.n; $('#badgeDot').style.setProperty('--sw', p.c);
+  $('#colorHex').textContent = p.orig ? 'The original color' : (p.custom ? p.c.toUpperCase() : 'Fabric cuff color');
+  paint(p.c); setAccent(p.c);
+}
+const sw = $('#swatches');
+PRESETS.forEach((p, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sw'; b.style.setProperty('--c', p.c);
+  b.setAttribute('role','radio'); b.setAttribute('aria-checked', i === 0); b.setAttribute('aria-label', p.n);
+  b.innerHTML = `<span class="sw-label">${p.n}</span>`; b.addEventListener('click', () => choose(p, b)); sw.appendChild(b); });
+let pickT; $('#picker').addEventListener('input', e => { clearTimeout(pickT); const v = e.target.value; pickT = setTimeout(() => choose({n:'Your color', c:v, custom:true}, null), 40); });
+
+/* hold to compare with original */
+(() => { const b = $('#compare'); let showing = false;
+  const on = e => { if (!ready || showing) return; e.preventDefault(); showing = true; back.getContext('2d').putImageData(origData,0,0); back.style.transition = 'none'; back.style.opacity = 1; };
+  const off = () => { if (!showing) return; showing = false; back.style.opacity = 0; requestAnimationFrame(() => back.style.transition = ''); };
+  b.addEventListener('pointerdown', on); ['pointerup','pointerleave','pointercancel'].forEach(ev => b.addEventListener(ev, off));
+  b.addEventListener('keydown', e => { if (e.key === ' ' || e.key === 'Enter') on(e); }); b.addEventListener('keyup', off); })();
+
+/* size + buy */
+let size = 'Size 1';
+$$('.size').forEach(b => b.addEventListener('click', () => { size = b.dataset.size; $$('.size').forEach(x => x.setAttribute('aria-checked', x === b)); }));
+const modal = $('#modal');
+$('#buyForm').addEventListener('submit', e => { e.preventDefault();
+  $('#sum').innerHTML = `<div><span>Color</span><b>${current.n}${current.custom ? ' ' + current.c.toUpperCase() : ''}</b></div><div><span>Size</span><b>${size}</b></div><div><span>Price</span><b>$49.99</b></div>`;
+  modal.hidden = false; $('#mClose').focus(); });
+$('#mClose').onclick = () => modal.hidden = true;
+modal.addEventListener('click', e => { if (e.target === modal) modal.hidden = true; });
+addEventListener('keydown', e => { if (e.key === 'Escape') modal.hidden = true; });
+</script>
+
+</body>
+</html>

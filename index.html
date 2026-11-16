@@ -67,7 +67,7 @@ a{color:inherit}
 }
 
 /* studio */
-.studio{padding-block:clamp(72px,10vw,130px)}
+.studio{padding-block:clamp(72px,10vw,130px);overflow-x:clip}
 .studio-head{display:grid;gap:14px;margin-bottom:40px;max-width:720px}
 .studio-head h2{font-size:clamp(2.1rem,5vw,3.8rem)}
 .studio-head p{color:var(--muted);font-size:1.1rem}
@@ -105,6 +105,20 @@ a{color:inherit}
 .buy-row .price small{display:block;font-family:var(--body);font-weight:600;font-size:.85rem;color:var(--muted)}
 .buy-row .btn{flex:1;min-width:200px}
 @media (max-width:860px){.studio-grid{grid-template-columns:1fr}.swatches{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+
+/* video */
+.film{padding-block:clamp(64px,9vw,120px);border-top:1px solid var(--line)}
+.film-grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:clamp(32px,6vw,96px);align-items:center}
+.film-frame{position:relative;width:100%;max-width:360px;aspect-ratio:9/16;border-radius:28px;overflow:hidden;background:#000;justify-self:center;box-shadow:0 0 0 1px var(--line),0 40px 120px -40px var(--glow);transition:box-shadow .5s}
+.film-frame video{width:100%;height:100%;object-fit:cover;display:block}
+.film-play{position:absolute;inset:0;border:0;cursor:pointer;background:linear-gradient(0deg,rgba(11,13,14,.7),rgba(11,13,14,0) 55%);display:flex;align-items:flex-end;padding:22px;color:var(--fg);font:inherit}
+.film-play span{display:flex;align-items:center;gap:12px;font-weight:700;font-size:1.05rem}
+.film-play b{width:58px;height:58px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;transition:background .4s,color .4s}
+.film-play svg{width:22px;height:22px;margin-left:3px}
+.film h2{font-size:clamp(2.1rem,5vw,3.8rem);margin-top:14px}
+.film p.lede{color:#C3C9C6;font-size:1.12rem;max-width:46ch;margin-top:18px}
+@media (max-width:860px){.film-grid{grid-template-columns:1fr}}
 
 /* what */
 .what{padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--line)}
@@ -150,13 +164,14 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="logo" viewBox="0 0 46 56"><path fill="#F2C230" d="M23 0l23 8.6v18.1C46 41 35.6 50 23 56 10.4 50 0 41 0 26.7V8.6z"/><path fill="#0B0D0E" d="M23 13s-10 11-10 18a10 10 0 0 0 20 0c0-7-10-18-10-18z"/><path fill="none" stroke="#F2C230" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M18 32l3.6 3.6L28 28"/></symbol>
+  <symbol id="play" viewBox="0 0 24 24"><path fill="currentColor" d="M7 4.6v14.8a1 1 0 0 0 1.5.86l12-7.4a1 1 0 0 0 0-1.72l-12-7.4A1 1 0 0 0 7 4.6z"/></symbol>
   <symbol id="check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
 </defs></svg>
 
 <header class="nav">
   <div class="wrap">
     <a class="logo" href="#top" aria-label="PuddleProof home"><svg aria-hidden="true"><use href="#logo"/></svg><span>PuddleProof</span></a>
-    <nav class="nav-links" aria-label="Sections"><a href="#colors">Colors</a><a href="#product">Product</a><a href="#about">About us</a></nav>
+    <nav class="nav-links" aria-label="Sections"><a href="#colors">Colors</a><a href="#video">Video</a><a href="#product">Product</a><a href="#about">About us</a></nav>
     <a class="btn btn-accent" href="#colors">Buy · $49.99</a>
   </div>
 </header>
@@ -170,6 +185,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
       <p>PuddleProof slips over the shoes you already own. A waterproof base keeps water out, the cuff rolls up to mid-calf for deep puddles, and a built-in fan keeps your feet cool.</p>
       <div class="row">
         <a class="btn btn-accent" href="#colors">Try the colors</a>
+        <a class="btn btn-ghost" href="#video" data-play>Watch the video</a>
         <span class="price-chip">$49.99 a pair</span>
       </div>
     </div>
@@ -212,6 +228,20 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
     </div>
   </section>
 
+  <section class="film" id="video" aria-labelledby="filmH">
+    <div class="wrap film-grid">
+      <div class="film-frame">
+        <video id="promo" src="assets/promo.mp4" poster="assets/promo-poster.jpg" playsinline preload="metadata" aria-label="PuddleProof promo video"></video>
+        <button class="film-play" id="filmPlay" type="button" aria-label="Play the PuddleProof video"><span><b><svg aria-hidden="true"><use href="#play"/></svg></b>Watch the video</span></button>
+      </div>
+      <div>
+        <span class="kicker">See it in action</span>
+        <h2 id="filmH">Built for the <span class="accent">deep stuff.</span></h2>
+        <p class="lede">Watch PuddleProof step into a puddle, come apart piece by piece, and snap back together: the clear waterproof base, the grip sole, the adjustable cuff and the cooling fan.</p>
+      </div>
+    </div>
+  </section>
+
   <section class="what" id="product" aria-labelledby="whatH">
     <div class="wrap">
       <h2 id="whatH" class="kicker" style="font-family:var(--body);margin-bottom:22px">What we sell</h2>
@@ -221,13 +251,6 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-bet
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2"/><path d="M12 10c0-4 1-7 4-7 2 0 3 2 2 4l-4 4M14 12c4 0 7 1 7 4 0 2-2 3-4 2l-4-4M12 14c0 4-1 7-4 7-2 0-3-2-2-4l4-4M10 12c-4 0-7-1-7-4 0-2 2-3 4-2l4 4"/></g></svg><h3>Built-in cooling</h3><p>Moisture-wicking mesh plus a small fan that blows cool air down to your feet.</p></div>
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M5 8h14l-1 12H6L5 8zM9 8V6a3 3 0 0 1 6 0v2"/></svg><h3>Folds into a pouch</h3><p>Elastic opening, non-slip sole, and a carry pouch for your bag or car.</p></div>
       </div>
-    </div>
-  </section>
-
-  <section class="video" id="video" aria-labelledby="videoH" style="padding-block:clamp(56px,8vw,100px);border-top:1px solid var(--line)">
-    <div class="wrap" style="display:grid;justify-items:center;gap:22px;text-align:center">
-      <h2 id="videoH" class="kicker" style="font-family:var(--body)">See how it works</h2>
-      <video src="assets/promo.mp4" poster="assets/promo-poster.jpg" controls playsinline preload="metadata" style="width:100%;max-width:360px;aspect-ratio:9/16;border-radius:24px;border:1px solid var(--line);background:#000;display:block"></video>
     </div>
   </section>
 
@@ -351,6 +374,13 @@ $('#buyForm').addEventListener('submit', e => { e.preventDefault();
 $('#mClose').onclick = () => modal.hidden = true;
 modal.addEventListener('click', e => { if (e.target === modal) modal.hidden = true; });
 addEventListener('keydown', e => { if (e.key === 'Escape') modal.hidden = true; });
+
+/* video */
+(() => { const v = document.getElementById('promo'), b = document.getElementById('filmPlay');
+  const play = () => { b.hidden = true; v.controls = true; v.muted = false; v.play().catch(() => { v.muted = true; v.play().catch(()=>{}); }); };
+  b.addEventListener('click', play); v.addEventListener('play', () => b.hidden = true);
+  document.querySelectorAll('[data-play]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); document.getElementById('video').scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(play, 600); }));
+})();
 </script>
 
 </body>

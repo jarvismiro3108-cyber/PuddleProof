@@ -1,0 +1,14 @@
+name: Republish site
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  pages: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: gh api -X POST repos/${{ github.repository }}/pages/builds
+        env:
+          GH_TOKEN: ${{ github.token }}
